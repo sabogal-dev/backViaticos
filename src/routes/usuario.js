@@ -16,6 +16,34 @@ router.post("/", async (req, res) => {
     }
 });
 
+// Editar usuario
+router.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const { nombre, clave, role } = req.body;
+    try {
+        const updatedUser = await prisma.usuario.update({
+            where: { id: parseInt(id) },
+            data: { nombre, clave, role },
+        });
+        res.json(updatedUser);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+// Eliminar usuario
+router.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        await prisma.usuario.delete({
+            where: { id: parseInt(id) },
+        });
+        res.json({ message: "Usuario eliminado correctamente" });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 router.post("/login", async (req, res) => {
     const { usuario, clave } = req.body;
     try {
@@ -30,7 +58,7 @@ router.post("/login", async (req, res) => {
         else {
             res.json({ error: "clave errada" })
         }
-        
+
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

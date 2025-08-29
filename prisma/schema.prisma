@@ -21,14 +21,45 @@ model Gasto {
   categoriaId Int
   categoria   Categoria @relation(fields: [categoriaId], references: [id])
 
-  // Relación con Categoria
+  // Relación con usuario
   usuarioId Int
   usuario   Usuario @relation(fields: [usuarioId], references: [id])
+
+  // Relación con Subcategoria
+  subcategoriaId Int?
+  subcategoria   Subcategoria? @relation(fields: [subcategoriaId], references: [id])
+
+  // Relación con proveedor
+  proveedorId Int?
+  proveedor   Proveedor? @relation(fields: [proveedorId], references: [id])
 }
 
 model Categoria {
+  id             Int     @id @default(autoincrement())
+  nombre         String  @db.VarChar(50)
+  cuentaContable Decimal @db.Decimal(10, 2)
+
+  gastos       Gasto[]
+  Subcategoria Subcategoria[]
+  proveedores  Proveedor[]
+}
+
+model Proveedor {
+  id     Int     @id @default(autoincrement())
+  nit    Decimal @db.Decimal(15, 0)
+  nombre String  @db.VarChar(60)
+
+  gastos     Gasto[]
+  categorias Categoria[]
+}
+
+model Subcategoria {
   id     Int    @id @default(autoincrement())
   nombre String @db.VarChar(50)
+
+  // Relación con Categoria
+  categoriaId Int
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
 
   gastos Gasto[]
 }

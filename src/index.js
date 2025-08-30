@@ -41,7 +41,7 @@ const upload = multer({ storage });
 app.post("/upload", upload.single("imagen"), (req, res) => {
   res.json({
     mensaje: "Imagen subida correctamente",
-    url: `/uploads/${req.file.filename}`,
+    url: `/backViaticos/uploads/${req.file.filename}`,
   });
 });
 

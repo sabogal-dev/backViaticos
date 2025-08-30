@@ -47,6 +47,6 @@ app.post("/upload", upload.single("imagen"), (req, res) => {
 
 app.use("/uploads", express.static("uploads"));
 
-app.listen(3000, () => {
-    console.log("🚀 Servidor corriendo en http://localhost:3000");
+app.listen(3038, () => {
+    console.log("🚀 Servidor corriendo en http://localhost:3038");
 });

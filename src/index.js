@@ -33,7 +33,7 @@ app.get("/", async (req, res) => {
 const storage = multer.diskStorage({
   destination: "uploads/", // Carpeta donde se guardan
   filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname /* path.extname(file.originalname) */); // nombre único
+    cb(null, Date.now() + file.originalname); // nombre único
   },
 });
 const upload = multer({ storage });
@@ -41,11 +41,19 @@ const upload = multer({ storage });
 app.post("/upload", upload.single("imagen"), (req, res) => {
   res.json({
     mensaje: "Imagen subida correctamente",
-    url: `/backViaticos/uploads/${req.file.filename}`,
+    url: req.file.filename,
   });
 });
 
-app.use("/uploads", express.static("uploads"));
+//seccion para extraer imagenes mediante api
+import path from "path";
+
+app.get("/imagen/:nombre", (req, res) => {
+  const nombreArchivo = req.params.nombre;
+  const ruta = path.join(process.cwd(), "uploads", nombreArchivo);
+  console.log(ruta)
+  res.sendFile(ruta);
+});
 
 app.listen(3038, () => {
     console.log("🚀 Servidor corriendo en http://localhost:3038");

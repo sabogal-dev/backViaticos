@@ -24,4 +24,10 @@ router.get("/", async (req, res) => {
   res.json(categorias);
 });
 
+// Listar categorías sin gastos
+router.get("/simple", async (req, res) => {
+  const categorias = await prisma.categoria.findMany();
+  res.json(categorias);
+});
+
 export default router;

@@ -5,21 +5,12 @@ const prisma = new PrismaClient();
 
 // Consulta Personalizada
 router.post("/", async (req, res) => {
-    const { modelo, campos } = req.body;
+    const { modelo, campos, agrupar } = req.body;
 
-    if (!campos) {
-        try {
-            const user = await prisma[modelo].findMany()
-            res.json(user);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-        return
-    }
-
+    // Realizar la consulta con los campos proporcionados
     try {
         const user = await prisma[modelo].findMany({
-            where: campos,
+            where: campos || {},
         })
         res.json(user);
     } catch (error) {

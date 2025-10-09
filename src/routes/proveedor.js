@@ -7,13 +7,18 @@ const prisma = new PrismaClient();
 router.post("/", async (req, res) => {
     const { nit, nombre, categoriaIds } = req.body;
     // categoriaIds sería un array de IDs, ej: [1, 2, 3]
+
+    //si categoriaIds no viene en la peticion, asignar un array vacio
+    const categoriaIdsArray = categoriaIds || [];
+
+    
     try {
         const proveedor = await prisma.proveedor.create({
             data: {
                 nit,
                 nombre,
-                categoria: {
-                    connect: categoriaIds.map(id => ({ id })) // <- conecta el proveedor con la categoría
+                categorias: {
+                    connect: categoriaIdsArray.map(id => ({ id })) // <- conecta el proveedor con la categoría
                 }
             },
         });
@@ -23,6 +28,7 @@ router.post("/", async (req, res) => {
     }
 });
 
+// Actualizar proveedor
 router.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { nit, nombre } = req.body;
@@ -37,7 +43,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-// Eliminar usuario
+// Eliminar proveedor
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {

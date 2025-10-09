@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-// Editar usuario
+// Editar subcategoria
 router.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { nombre, categoriaId } = req.body;
@@ -31,7 +31,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-// Eliminar usuario
+// Eliminar subcategoria
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {

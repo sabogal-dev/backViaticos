@@ -16,6 +16,7 @@ import gastoRoutes from "./routes/gasto.js";
 import subcategoriaRoutes from "./routes/subcategoria.js"
 import proveedorRoutes from "./routes/proveedor.js"
 import consultarRoutes from "./routes/consultar.js"
+import consignacionRoutes from "./routes/consignacion.js"
 
 app.use("/usuarios", usuarioRoutes);
 app.use("/categorias", categoriaRoutes);
@@ -23,6 +24,7 @@ app.use("/subcategorias", subcategoriaRoutes);
 app.use("/proveedor", proveedorRoutes);
 app.use("/gastos", gastoRoutes);
 app.use("/consultar", consultarRoutes)
+app.use("/consignaciones", consignacionRoutes)
 
 
 app.get("/", async (req, res) => {

@@ -16,6 +16,9 @@ model Gasto {
   fecha       DateTime @db.DateTime(0)
   imagen      String?
   monto       Decimal  @db.Decimal(10, 2)
+  
+  // Quién pagó el gasto: "vendedor" o "empresa"
+  pagadoPor   String   @default("vendedor") @db.VarChar(20)
 
   // Relación con Categoria
   categoriaId Int
@@ -70,5 +73,19 @@ model Usuario {
   clave  String
   role   String
 
-  gastos Gasto[]
+  gastos         Gasto[]
+  consignaciones Consignacion[]
+}
+
+model Consignacion {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  fecha       DateTime @db.DateTime(0)
+  monto       Decimal  @db.Decimal(10, 2)
+  concepto    String?  @db.Text
+  comprobante String?  @db.VarChar(100)
+  
+  // Relación con usuario
+  usuarioId Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
 }

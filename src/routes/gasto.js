@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 // Crear gasto
 router.post("/", async (req, res) => {
-    const { titulo, descripcion, monto, fecha, categoriaId, usuarioId, subcategoriaId, proveedorId, imagen } = req.body;
+    const { titulo, descripcion, monto, fecha, categoriaId, usuarioId, subcategoriaId, proveedorId, imagen, pagadoPor } = req.body;
     try {
         const gasto = await prisma.gasto.create({
-            data: { titulo, descripcion, monto, fecha, categoriaId, usuarioId, subcategoriaId, proveedorId, imagen },
+            data: { titulo, descripcion, monto, fecha, categoriaId, usuarioId, subcategoriaId, proveedorId, imagen, pagadoPor },
         });
         res.json(gasto);
     } catch (error) {

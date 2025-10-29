@@ -2,6 +2,9 @@ node_modules
 # Keep environment variables out of version control
 .env
 
-/prisma/migrations
+# Prisma: Ignorar cliente generado pero SÍ incluir migraciones
 /src/generated/prisma
+
+# Uploads: ignorar archivos subidos pero mantener estructura
 /uploads/*
+!uploads/.gitkeep
